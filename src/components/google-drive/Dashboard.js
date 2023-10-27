@@ -16,9 +16,6 @@ export default function Dashboard() {
     folderId,
     state.folder
   );
-  console.log("childFiles: ", childFiles);
-  // console.log("childFolders: ", childFolders);
-  // console.log(folder);
   return (
     <>
       <NavbarContainer />

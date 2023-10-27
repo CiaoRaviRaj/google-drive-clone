@@ -57,6 +57,8 @@ export function useFolder(folderId = null, folder = null) {
   useEffect(() => {
     dispatch({ type: ACTIONS.SELECT_FOLDER, payload: { folderId, folder } });
   }, [folderId, folder]);
+
+  // Reset folder
   useEffect(() => {
     if (folderId == null) {
       return dispatch({
@@ -81,7 +83,7 @@ export function useFolder(folderId = null, folder = null) {
         });
       });
   }, [folderId]);
-
+  // set folder
   useEffect(() => {
     const cleanup = database.folders
       .where("parentId", "==", folderId)
@@ -97,12 +99,12 @@ export function useFolder(folderId = null, folder = null) {
       cleanup();
     };
   }, [folderId, currentUser]);
-
+  // set files
   useEffect(() => {
     const cleanup = database.files
       .where("folderId", "==", folderId)
       .where("userId", "==", currentUser.uid)
-      // .orderBy("createdAt")
+      .orderBy("createdAt")
       .onSnapshot((snapshot) => {
         dispatch({
           type: ACTIONS.SET_CHILD_FILES,
